@@ -1,12 +1,32 @@
 import Colores from "../models/colores.js";
 
+// Función helper para transformar el formato de la BD al formato del frontend
+const transformarColor = (color) => {
+  if (!color) return null;
+  const colorObj = color.toObject ? color.toObject() : color;
+  return {
+    id: colorObj._id.toString(),
+    nombre: colorObj.nombreColor,
+    hex: colorObj.codigo_hex || undefined,
+    rgb: colorObj.codigo_rgb || undefined,
+    // Mantener compatibilidad con formato original
+    _id: colorObj._id,
+    nombreColor: colorObj.nombreColor,
+    codigo_hex: colorObj.codigo_hex,
+    codigo_rgb: colorObj.codigo_rgb,
+    createdAt: colorObj.createdAt,
+    updatedAt: colorObj.updatedAt,
+  };
+};
+
 export const listarColores = async (req, res) => {
   try {
     const colores = await Colores.find().sort({ createdAt: -1 });
+    const coloresTransformados = colores.map(transformarColor);
     res.status(200).json({
       success: true,
-      data: colores,
-      total: colores.length,
+      data: coloresTransformados,
+      total: coloresTransformados.length,
     });
   } catch (err) {
     console.error(err);
@@ -20,7 +40,10 @@ export const listarColores = async (req, res) => {
 
 export const agregarColor = async (req, res) => {
   try {
-    const { nombreColor, codigo_hex, codigo_rgb } = req.body;
+    // Aceptar ambos formatos: nombreColor/nombre, codigo_hex/hex, codigo_rgb/rgb
+    const nombreColor = req.body.nombreColor || req.body.nombre;
+    const codigo_hex = req.body.codigo_hex || req.body.hex;
+    const codigo_rgb = req.body.codigo_rgb || req.body.rgb;
 
     // Validar que al menos nombreColor esté presente
     if (!nombreColor || !nombreColor.trim()) {
@@ -62,7 +85,7 @@ export const agregarColor = async (req, res) => {
     res.status(201).json({
       success: true,
       mensaje: "Color agregado exitosamente",
-      data: nuevoColor,
+      data: transformarColor(nuevoColor),
     });
   } catch (err) {
     console.error(err);
@@ -114,7 +137,7 @@ export const eliminarColor = async (req, res) => {
     res.status(200).json({
       success: true,
       mensaje: "Color eliminado correctamente",
-      data: colorBuscado,
+      data: transformarColor(colorBuscado),
     });
   } catch (err) {
     console.error(err);
@@ -137,7 +160,10 @@ export const eliminarColor = async (req, res) => {
 export const editarColor = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombreColor, codigo_hex, codigo_rgb } = req.body;
+    // Aceptar ambos formatos: nombreColor/nombre, codigo_hex/hex, codigo_rgb/rgb
+    const nombreColor = req.body.nombreColor !== undefined ? req.body.nombreColor : req.body.nombre;
+    const codigo_hex = req.body.codigo_hex !== undefined ? req.body.codigo_hex : req.body.hex;
+    const codigo_rgb = req.body.codigo_rgb !== undefined ? req.body.codigo_rgb : req.body.rgb;
 
     if (!id) {
       return res.status(400).json({
@@ -169,7 +195,7 @@ export const editarColor = async (req, res) => {
     }
 
     const datosActualizados = {};
-    if (nombreColor) datosActualizados.nombreColor = nombreColor.trim();
+    if (nombreColor !== undefined) datosActualizados.nombreColor = nombreColor.trim();
     if (codigo_hex !== undefined) {
       datosActualizados.codigo_hex = codigo_hex ? codigo_hex.trim() : null;
     }
@@ -193,7 +219,7 @@ export const editarColor = async (req, res) => {
     res.status(200).json({
       success: true,
       mensaje: "Color actualizado correctamente",
-      data: colorBuscado,
+      data: transformarColor(colorBuscado),
     });
   } catch (err) {
     console.error(err);
@@ -250,7 +276,7 @@ export const obtenerColorID = async (req, res) => {
     }
     res.status(200).json({
       success: true,
-      data: colorBuscado,
+      data: transformarColor(colorBuscado),
     });
   } catch (err) {
     console.error(err);
