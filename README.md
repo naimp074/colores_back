@@ -63,7 +63,7 @@ npm run dev
 
 ### 3. Agregar un color
 - **POST** `/colores`
-- Body (JSON):
+- Body (JSON) - Formato 1 (Postman):
 ```json
 {
   "nombreColor": "Azul",
@@ -71,7 +71,15 @@ npm run dev
   "codigo_rgb": "rgb(0, 0, 255)"
 }
 ```
-- Nota: `codigo_hex` y `codigo_rgb` son opcionales
+- Body (JSON) - Formato 2 (Frontend):
+```json
+{
+  "nombre": "Azul",
+  "hex": "#0000FF",
+  "rgb": "rgb(0, 0, 255)"
+}
+```
+- Nota: `codigo_hex`/`hex` y `codigo_rgb`/`rgb` son opcionales. El backend acepta ambos formatos.
 - Respuesta exitosa (201):
 ```json
 {
@@ -83,12 +91,20 @@ npm run dev
 
 ### 4. Editar un color
 - **PUT** `/colores/:id`
-- Body (JSON) - todos los campos son opcionales:
+- Body (JSON) - todos los campos son opcionales. Acepta ambos formatos:
 ```json
 {
   "nombreColor": "Azul Marino",
   "codigo_hex": "#000080",
   "codigo_rgb": "rgb(0, 0, 128)"
+}
+```
+o
+```json
+{
+  "nombre": "Azul Marino",
+  "hex": "#000080",
+  "rgb": "rgb(0, 0, 128)"
 }
 ```
 - Respuesta exitosa (200):
@@ -113,9 +129,17 @@ npm run dev
 
 ## Validaciones
 
-- **nombreColor**: Requerido, único, entre 1 y 50 caracteres
-- **codigo_hex**: Opcional, formato #RRGGBB o #RGB, único si se proporciona
-- **codigo_rgb**: Opcional, formato rgb(r, g, b) o rgba(r, g, b, a), único si se proporciona
+- **nombreColor/nombre**: Requerido, único, entre 1 y 50 caracteres
+- **codigo_hex/hex**: Opcional, formato #RRGGBB o #RGB, único si se proporciona
+- **codigo_rgb/rgb**: Opcional, formato rgb(r, g, b) o rgba(r, g, b, a), único si se proporciona
+
+## Compatibilidad
+
+El backend acepta y responde con ambos formatos:
+- **Formato Postman**: `nombreColor`, `codigo_hex`, `codigo_rgb`
+- **Formato Frontend**: `nombre`, `hex`, `rgb`, `id` (en lugar de `_id`)
+
+Las respuestas incluyen ambos formatos para máxima compatibilidad.
 
 ## Estructura del Proyecto
 
