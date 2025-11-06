@@ -1,0 +1,20 @@
+{
+  "name": "administrarcolores_back",
+  "version": "1.0.0",
+  "description": "Backend para administrar paleta de colores",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --env-file .env --watch index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.2",
+    "morgan": "^1.10.1"
+  }
+}
