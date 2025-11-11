@@ -4,8 +4,7 @@ import Server from "./src/server/config.js";
 const server = new Server();
 server.app.use("/api", router);
 
-// Exportar handler para Vercel (serverless function)
-// Vercel espera que exportemos el app de Express directamente
+// Exportar para Vercel (serverless function)
 export default server.app;
 
 // Solo iniciar servidor en desarrollo local
