@@ -22,6 +22,13 @@ npm install
 ```
 PORT=3001
 MONGODB=mongodb://localhost:27017/paletacolores
+# O usar MONGODB_URI para compatibilidad con Vercel
+MONGODB_URI=mongodb://localhost:27017/paletacolores
+```
+
+**Nota para Vercel**: En Vercel, configura la variable de entorno `MONGODB_URI` (o `MONGODB`) con la cadena de conexión completa que incluya el nombre de la base de datos:
+```
+MONGODB_URI=mongodb+srv://USER:PASS@cluster0.xxxx.mongodb.net/colores?retryWrites=true&w=majority
 ```
 
 3. Iniciar el servidor:

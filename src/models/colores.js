@@ -50,7 +50,8 @@ coloresSchema.index(
   }
 );
 
-const Colores = mongoose.model("color", coloresSchema);
+// Evitar redefinir el modelo si ya existe (importante para Vercel/serverless)
+const Colores = mongoose.models.color || mongoose.model("color", coloresSchema);
 
 export default Colores;
 

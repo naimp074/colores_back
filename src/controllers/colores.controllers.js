@@ -1,4 +1,5 @@
 import Colores from "../models/colores.js";
+import { connectDB } from "../../lib/db.js";
 
 // Función helper para transformar el formato de la BD al formato del frontend
 const transformarColor = (color) => {
@@ -21,6 +22,8 @@ const transformarColor = (color) => {
 
 export const listarColores = async (req, res) => {
   try {
+    // Conectar a la BD antes de consultar (importante para Vercel)
+    await connectDB();
     const colores = await Colores.find().sort({ createdAt: -1 });
     const coloresTransformados = colores.map(transformarColor);
     res.status(200).json({
@@ -40,6 +43,8 @@ export const listarColores = async (req, res) => {
 
 export const agregarColor = async (req, res) => {
   try {
+    // Conectar a la BD antes de consultar (importante para Vercel)
+    await connectDB();
     // Aceptar ambos formatos: nombreColor/nombre, codigo_hex/hex, codigo_rgb/rgb
     const nombreColor = req.body.nombreColor || req.body.nombre;
     const codigo_hex = req.body.codigo_hex || req.body.hex;
@@ -118,6 +123,8 @@ export const agregarColor = async (req, res) => {
 
 export const eliminarColor = async (req, res) => {
   try {
+    // Conectar a la BD antes de consultar (importante para Vercel)
+    await connectDB();
     const { id } = req.params;
 
     if (!id) {
@@ -159,6 +166,8 @@ export const eliminarColor = async (req, res) => {
 
 export const editarColor = async (req, res) => {
   try {
+    // Conectar a la BD antes de consultar (importante para Vercel)
+    await connectDB();
     const { id } = req.params;
     // Aceptar ambos formatos: nombreColor/nombre, codigo_hex/hex, codigo_rgb/rgb
     const nombreColor = req.body.nombreColor !== undefined ? req.body.nombreColor : req.body.nombre;
@@ -258,6 +267,8 @@ export const editarColor = async (req, res) => {
 
 export const obtenerColorID = async (req, res) => {
   try {
+    // Conectar a la BD antes de consultar (importante para Vercel)
+    await connectDB();
     const { id } = req.params;
 
     if (!id) {

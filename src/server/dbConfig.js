@@ -1,12 +1,14 @@
-import mongoose from "mongoose";
+import { connectDB } from "../../lib/db.js";
 
-try {
-  mongoose.connect(process.env.MONGODB).then(() => {
-    console.info("Conexion con BD exitosa");
+// Conectar al importar el módulo (solo en desarrollo local)
+// En Vercel, la conexión se hará bajo demanda en cada request
+if (!process.env.VERCEL) {
+  connectDB().catch((err) => {
+    console.error("❌ Error al conectar con MongoDB:", err.message);
   });
-} catch (err) {
-  console.error(err);
 }
 
-export default mongoose;
+// Exportar la función de conexión para uso en controladores
+export { connectDB };
+export default connectDB;
 
