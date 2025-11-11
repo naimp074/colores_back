@@ -4,5 +4,11 @@ import Server from "./src/server/config.js";
 const server = new Server();
 server.app.use("/api", router);
 
-server.listen();
+// Exportar para Vercel (serverless function)
+export default server.app;
+
+// Solo iniciar servidor en desarrollo local
+if (!process.env.VERCEL) {
+  server.listen();
+}
 
