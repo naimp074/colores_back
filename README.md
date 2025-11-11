@@ -158,3 +158,7 @@ Las respuestas incluyen ambos formatos para máxima compatibilidad.
 │       └── colores.routes.js # Rutas de colores
 └── package.json
 ```
+
+## Autor
+
+**Naim Federico Paz**
