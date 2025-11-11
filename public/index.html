@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend - Administrar Colores</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .status {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
+        h1 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .status-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #10b981;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .info {
+            background: #f3f4f6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .info h2 {
+            color: #374151;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .endpoint {
+            background: white;
+            border-left: 4px solid #667eea;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #1f2937;
+        }
+        
+        .endpoint strong {
+            color: #667eea;
+        }
+        
+        .author {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .author strong {
+            color: #374151;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Backend - Administrar Colores</h1>
+        <div class="status-text">
+            <span class="status"></span>
+            Servidor funcionando correctamente
+        </div>
+        
+        <div class="info">
+            <h2>📡 Endpoints Disponibles</h2>
+            <div class="endpoint">
+                <strong>GET</strong> /api/colores - Listar todos los colores
+            </div>
+            <div class="endpoint">
+                <strong>GET</strong> /api/colores/:id - Obtener un color por ID
+            </div>
+            <div class="endpoint">
+                <strong>POST</strong> /api/colores - Agregar un color
+            </div>
+            <div class="endpoint">
+                <strong>PUT</strong> /api/colores/:id - Editar un color
+            </div>
+            <div class="endpoint">
+                <strong>DELETE</strong> /api/colores/:id - Eliminar un color
+            </div>
+        </div>
+        
+        <div class="author">
+            <strong>Autor:</strong> Naim Federico Paz
+        </div>
+    </div>
+</body>
+</html>
+
