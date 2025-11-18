@@ -21,15 +21,20 @@ npm install
 2. Crear archivo `.env` en la raíz del proyecto:
 ```
 PORT=3001
-MONGODB=mongodb://localhost:27017/paletacolores
-# O usar MONGODB_URI para compatibilidad con Vercel
 MONGODB_URI=mongodb://localhost:27017/paletacolores
 ```
 
-**Nota para Vercel**: En Vercel, configura la variable de entorno `MONGODB_URI` (o `MONGODB`) con la cadena de conexión completa que incluya el nombre de la base de datos:
+**⚠️ IMPORTANTE para Vercel**: 
+- En Vercel, configura la variable de entorno `MONGODB_URI` en Settings → Environment Variables
+- La cadena de conexión debe incluir el nombre de la base de datos después del dominio
+- Ejemplo para MongoDB Atlas (con tu conexión):
 ```
-MONGODB_URI=mongodb+srv://USER:PASS@cluster0.xxxx.mongodb.net/colores?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://naimpaz274_db_user:01tPxgfqnCU3Y7SN@colores.dhn95tv.mongodb.net/paletacolores?retryWrites=true&w=majority
 ```
+
+**Nota:** 
+- El código usa `MONGODB_URI` como prioridad. Si no existe, usa `MONGODB` como fallback (solo para compatibilidad).
+- **IMPORTANTE:** Agrega el nombre de la base de datos en la URL (ej: `/paletacolores` o `/colores`)
 
 3. Iniciar el servidor:
 ```bash
