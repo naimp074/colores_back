@@ -12,13 +12,19 @@ export default class Server {
     this.middlewares();
   }
   middlewares() {
-    this.app.use(cors());
+    // Configurar CORS para permitir todas las solicitudes (importante para Vercel)
+    this.app.use(cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      credentials: true,
+    }));
+    
     this.app.use(express.json());
     this.app.use(morgan("dev"));
+    
     //Configuracion del archivo estatico
     const __dirname = dirname(fileURLToPath(import.meta.url));
-    console.log(__dirname);
-    console.log(__dirname + "/../../public");
     this.app.use(express.static(__dirname + "/../../public"));
   }
   listen() {
